@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Orleans.ApplicationParts;
 using Orleans.Runtime;
+using Orleans.Serialization.TypeSystem;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace Orleans.Indexing
     /// </summary>
     internal class IndexManager : ILifecycleParticipant<IClusterClientLifecycle>
     {
-        internal IApplicationPartManager ApplicationPartManager;
+        internal ApplicationPartManager ApplicationPartManager;
 
-        internal ITypeResolver CachedTypeResolver { get; }
+        internal TypeResolver CachedTypeResolver { get; }
 
         internal IndexRegistry IndexRegistry { get; private set; }
 
@@ -31,7 +32,7 @@ namespace Orleans.Indexing
 
         internal ILoggerFactory LoggerFactory { get; }
 
-        public IndexManager(IServiceProvider sp, IGrainFactory gf, IApplicationPartManager apm, ILoggerFactory lf, ITypeResolver typeResolver)
+        public IndexManager(IServiceProvider sp, IGrainFactory gf, ApplicationPartManager apm, ILoggerFactory lf, TypeResolver typeResolver)
         {
             this.ServiceProvider = sp;
             this.GrainFactory = gf;

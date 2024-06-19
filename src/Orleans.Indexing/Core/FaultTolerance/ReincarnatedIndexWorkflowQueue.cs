@@ -15,10 +15,10 @@ namespace Orleans.Indexing
         internal SiloIndexManager SiloIndexManager => IndexManager.GetSiloIndexManager(ref __siloIndexManager, base.ServiceProvider);
         private SiloIndexManager __siloIndexManager;
 
-        public override Task OnActivateAsync()
+        public override Task OnActivateAsync(CancellationToken cancel)
         {
             DelayDeactivation(ACTIVE_FOR_A_DAY);
-            return base.OnActivateAsync();
+            return base.OnActivateAsync(cancel);
         }
 
         public Task Initialize(IIndexWorkflowQueue oldParentGrainService)

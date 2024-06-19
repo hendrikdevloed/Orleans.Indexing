@@ -18,7 +18,7 @@ namespace Orleans.Indexing
     /// <typeparam name="FromTP">type of grain for input IOrleansQueryResultStream</typeparam>
     /// <typeparam name="ToTP">type of grain for output IOrleansQueryResultStream</typeparam>
 
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class OrleansQueryResultStreamCaster<FromTP, ToTP> : IOrleansQueryResultStream<ToTP> where FromTP : IIndexableGrain where ToTP : IIndexableGrain
     {
         protected IOrleansQueryResultStream<FromTP> _stream;

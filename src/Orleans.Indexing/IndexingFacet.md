@@ -156,7 +156,7 @@ This section describes the indexing interface that is presented to the applicati
 ### Application Properties Classes
 Applications define the serializable data classes whose properties are indexed, for example:
 ```c#
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class SportsTeamIndexedProperties : ISportsTeamIndexedProperties
     {
         [Index(typeof(IActiveHashIndexPartitionedPerSilo<string, ISportsTeamGrain>), IsEager = true, IsUnique = false)]
@@ -208,7 +208,7 @@ For a single indexed interface, the `TGrainState` class can inherit from the `TP
         public string League { get; set; }
     }
 
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class SportsTeamState : SportsTeamIndexedProperties
     {
         // This property is not indexed.
@@ -245,7 +245,7 @@ For multiple indexed interfaces, the `TGrainState` class and `TProperties` class
         public int Age { get; set; }
     }
 
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class JobProperties : IJobProperties
     {
         [Index(typeof(IActiveHashIndexSingleBucket<string, IJobGrain>), IsEager = true, IsUnique = true)]
@@ -255,7 +255,7 @@ For multiple indexed interfaces, the `TGrainState` class and `TProperties` class
         public string Department { get; set; }
     }
 
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class EmployeeProperties : IEmployeeProperties
     {
         [Index(typeof(IActiveHashIndexSingleBucket<int, IEmployeeGrain>), IsEager = true, IsUnique = true, NullValue = "-1")]

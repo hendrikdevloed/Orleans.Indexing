@@ -6,7 +6,7 @@ namespace Orleans.Indexing
     /// <summary>
     /// 
     /// </summary>
-    [Serializable]
+    [Serializable, GenerateSerializer]
     internal class IndexUpdateGenerator : IIndexUpdateGenerator
     {
         PropertyInfo prop;

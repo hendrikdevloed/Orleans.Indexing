@@ -7,7 +7,7 @@ namespace Orleans.Indexing.Facet
     /// A wrapper around a user-defined state, TGrainState, which extends IndexableGrainStateWrapper to add fields for fault-tolerant indexing
     /// </summary>
     /// <typeparam name="TGrainState">the type of user state</typeparam>
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class FaultTolerantIndexedGrainStateWrapper<TGrainState> : IndexedGrainStateWrapper<TGrainState>
         where TGrainState : new()
     {

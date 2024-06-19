@@ -12,7 +12,7 @@ namespace Orleans.Indexing
     /// OrleansQueryResultStream is actually a stream of results that can be observed by its client.
     /// </summary>
     /// <typeparam name="TIGrain">type of grain for query result</typeparam>
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class OrleansQueryResultStream<TIGrain> : IOrleansQueryResultStream<TIGrain> where TIGrain : IIndexableGrain
     {
         // TODO: Currently, the whole result is stored here, but it is just a simple implementation. This implementation should

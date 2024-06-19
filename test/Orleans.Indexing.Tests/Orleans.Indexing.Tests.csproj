@@ -4,24 +4,22 @@
     <AssemblyName>Orleans.Indexing.Tests</AssemblyName>
     <OrleansBuildTimeCodeGen>true</OrleansBuildTimeCodeGen>
     <TargetFrameworks />
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="$(OrleansVersion)">
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Orleans.TestingHost" Version="8.1.0" />
+    <PackageReference Include="System.Net.Http" Version="$(SystemNetHttpVersion)" />
+    <PackageReference Include="xunit" Version="2.8.1" />
+    <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="$(DotNetxUnitVersion)" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Orleans.TestingHost" Version="$(OrleansVersion)" />
-    <PackageReference Include="Orleans.Persistence.CosmosDB" Version="1.2.1" />
-    <PackageReference Include="System.Net.Http" Version="$(SystemNetHttpVersion)" />
-    <PackageReference Include="xunit" Version="$(xUnitVersion)" />
-    <PackageReference Include="Xunit.SkippableFact" Version="$(XunitSkippableFactVersion)" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="$(DotNetxUnitVersion)" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="$(xUnitVersion)" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftTestSdkVersion)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
 
   <ItemGroup>

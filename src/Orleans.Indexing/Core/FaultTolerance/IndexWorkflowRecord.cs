@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Orleans.Indexing
 {
-    [Serializable]
+    [Serializable, GenerateSerializer]
     internal class IndexWorkflowRecord
     {
         /// <summary>

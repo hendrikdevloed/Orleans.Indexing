@@ -28,10 +28,10 @@ namespace Orleans.Indexing
         private ILogger Logger => __logger ?? (__logger = this.SiloIndexManager.LoggerFactory.CreateLoggerWithFullCategoryName<ActiveHashIndexPartitionedPerSiloImpl<K, V>>());
         private ILogger __logger;
 
-        public override Task OnActivateAsync()
+        public override Task OnActivateAsync(CancellationToken cancel)
         {
             _status = IndexStatus.Available;
-            return base.OnActivateAsync();
+            return base.OnActivateAsync(cancel);
         }
 
         /// <summary>

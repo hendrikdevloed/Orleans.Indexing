@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Orleans.ApplicationParts;
 using Orleans.Hosting;
 using Orleans.Runtime;
 
@@ -29,7 +30,7 @@ namespace Orleans.Indexing
             this.logger = this.indexManager.LoggerFactory.CreateLoggerWithFullCategoryName<ApplicationPartsIndexableGrainLoader>();
         }
 
-        private static Type[] GetIndexedConcreteGrainClasses(IApplicationPartManager applicationPartManager, ILogger logger = null)
+        private static Type[] GetIndexedConcreteGrainClasses(ApplicationPartManager applicationPartManager, ILogger logger = null)
             => applicationPartManager.ApplicationParts.OfType<AssemblyPart>()
                 .SelectMany(part => part.Assembly.GetIndexedGrainClasses())
                 .ToArray();
@@ -265,7 +266,7 @@ namespace Orleans.Indexing
                                  string indexName, Type indexType, bool isEager, bool isUnique, int maxEntriesPerBucket)
         {
             indexesOnGrain[indexName] = this.indexManager.IndexFactory.CreateIndex(indexType, indexName, isUnique, isEager, maxEntriesPerBucket, property);
-            this.logger.Info($"Index created: Interface = {grainInterfaceType.Name}, property = {propertiesArg.Name}, index = {indexName}");
+            this.logger.LogInformation("Index created: Interface = {Interface}, property = {Property}, index = {Index}", grainInterfaceType.Name, propertiesArg.Name, indexName);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -29,7 +29,7 @@ namespace Orleans.Indexing
         private IndexWorkflowQueueBase _base;
 
         internal IndexWorkflowQueueGrainService(SiloIndexManager siloIndexManager, Type grainInterfaceType, int queueSequenceNumber, bool isDefinedAsFaultTolerantGrain)
-            : base(IndexWorkflowQueueBase.CreateIndexWorkflowQueueGrainReference(siloIndexManager, grainInterfaceType, queueSequenceNumber, siloIndexManager.SiloAddress).GrainIdentity,
+            : base(IndexWorkflowQueueBase.CreateIndexWorkflowQueueGrainReference(siloIndexManager, grainInterfaceType, queueSequenceNumber, siloIndexManager.SiloAddress).GrainId,
                                                                                  siloIndexManager.Silo, siloIndexManager.LoggerFactory)
         {
             _base = new IndexWorkflowQueueBase(siloIndexManager, grainInterfaceType, queueSequenceNumber, siloIndexManager.SiloAddress, isDefinedAsFaultTolerantGrain,

@@ -11,7 +11,7 @@ namespace Orleans.Indexing
     /// As soon as the single record is found, it stops the underlying stream.
     /// </summary>
     /// <typeparam name="TIGrain">type of grain for query result</typeparam>
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class OrleansFirstQueryResultStream<TIGrain> : OrleansQueryResultStream<TIGrain> where TIGrain : IIndexableGrain
     {
         public OrleansFirstQueryResultStream() : this(CreateNewStream())

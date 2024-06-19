@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace Orleans.Indexing
 {
+    // The persistent unit for storing the information for an <see cref="IndexWorkflowQueueGrainService"/>
+    // 
+    // This requires GrainState instead of using StateStorageBridge, due to having to set the ETag for upsert.
+    using IndexWorkflowQueueState = GrainState<IndexWorkflowQueueEntry>;
+
     /// <summary>
     /// To minimize the number of RPCs, we process index updates for each grain on the silo where the grain is active. To do this processing, each silo
     /// has one or more <see cref="IndexWorkflowQueueGrainService"/>s for each grain class, up to the number of hardware threads. A GrainService is a grain that
@@ -103,7 +108,7 @@ namespace Orleans.Indexing
         }
 
         private IIndexWorkflowQueueHandler InitWorkflowQueueHandler()
-            => __handler = _lazyParent.Value.IsGrainService
+            => __handler = _lazyParent.Value.GrainId.IsSystemTarget()
                             ? SiloIndexManager.GetGrainService<IIndexWorkflowQueueHandler>(
                                     IndexWorkflowQueueHandlerBase.CreateIndexWorkflowQueueHandlerGrainReference(SiloIndexManager, _grainInterfaceType, _queueSeqNum, _silo))
                             : SiloIndexManager.GrainFactory.GetGrain<IIndexWorkflowQueueHandler>(CreateIndexWorkflowQueuePrimaryKey(_grainInterfaceType, _queueSeqNum));
@@ -118,7 +123,7 @@ namespace Orleans.Indexing
                     {
                         var readGrainReference = this._recoveryGrainReference ?? _lazyParent.Value;
                         this.StorageProvider = typeof(IndexWorkflowQueueGrainService).GetGrainStorage(this.SiloIndexManager.ServiceProvider);
-                        await this.StorageProvider.ReadStateAsync(_grainTypeName, readGrainReference, this.queueState);
+                        await this.StorageProvider.ReadStateAsync(_grainTypeName, readGrainReference.GrainId, this.queueState);
                     }
                 }
             }

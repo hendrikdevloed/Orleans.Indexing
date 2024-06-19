@@ -57,11 +57,11 @@ namespace Orleans.Indexing
 
         private protected DMSIGrain(bool isTransactional) => this.isTransactional = isTransactional;
 
-        public override Task OnActivateAsync()
+        public override Task OnActivateAsync(CancellationToken cancel)
         {
             var indexName = IndexUtils.GetIndexNameFromIndexGrain(this);
             _indexedField = indexName.Substring(2);
-            return base.OnActivateAsync();
+            return base.OnActivateAsync(cancel);
         }
 
         public Task<bool> DirectApplyIndexUpdateBatch(Immutable<IDictionary<IIndexableGrain, IList<IMemberUpdate>>> iUpdates,

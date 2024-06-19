@@ -13,9 +13,9 @@ namespace Orleans.Indexing.Facet
     {
         private protected readonly IServiceProvider ServiceProvider;
         private protected readonly IIndexedStateConfiguration IndexedStateConfig;
-        private protected readonly IGrainActivationContext grainActivationContext;
+        private protected readonly IGrainContext grainContext;
 
-        private protected Grain grain;
+        private protected IGrain grain;
         private protected IIndexableGrain iIndexableGrain;
 
         private protected Func<Guid> getWorkflowIdFunc;
@@ -23,11 +23,11 @@ namespace Orleans.Indexing.Facet
         private protected GrainIndexes _grainIndexes;
         private protected bool _hasAnyUniqueIndex;
 
-        public IndexedStateBase(IServiceProvider sp, IIndexedStateConfiguration config, IGrainActivationContext context)
+        public IndexedStateBase(IServiceProvider sp, IIndexedStateConfiguration config, IGrainContext context)
         {
             this.ServiceProvider = sp;
             this.IndexedStateConfig = config;
-            this.grainActivationContext = context;
+            this.grainContext = context;
         }
 
         // IndexManager (and therefore logger) cannot be set in ctor because Grain activation has not yet set base.Runtime.
@@ -55,7 +55,7 @@ namespace Orleans.Indexing.Facet
             lifecycle.Subscribe<TSubclass>(GrainLifecycleStage.Activate, ct => OnActivateAsync(ct), ct => OnDeactivateAsync(ct));
         }
 
-        private protected Task OnSetupStateAsync() => this.Initialize(this.grainActivationContext.GrainInstance);
+        private protected Task OnSetupStateAsync() => this.Initialize(this.grainContext/*.GrainInstance*/ as IGrain);
 
         internal abstract Task OnActivateAsync(CancellationToken ct);
 
@@ -63,7 +63,7 @@ namespace Orleans.Indexing.Facet
 
         #endregion Lifecycle management
 
-        private Task Initialize(Grain grain)
+        private Task Initialize(IGrain grain)
         {
             if (this.grain == null) // If not already called
             {

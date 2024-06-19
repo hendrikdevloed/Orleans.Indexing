@@ -38,7 +38,7 @@ namespace Orleans.Indexing
         public HashIndexSingleBucket(ITransactionalState<HashIndexBucketState<K, V>> transactionalState)
             => this.maybeTransactionalState = transactionalState;
 
-        public async override Task OnActivateAsync()
+        public async override Task OnActivateAsync(CancellationToken cancel)
         {
             if (this.maybeTransactionalState == null)
             {
@@ -51,7 +51,7 @@ namespace Orleans.Indexing
             this.write_lock = new AsyncLock();
             this.writeRequestIdGen = 0;
             this.pendingWriteRequests = new HashSet<int>();
-            await base.OnActivateAsync();
+            await base.OnActivateAsync(cancel);
         }
 
         private void EnsureStateInitialized(HashIndexBucketState<K, V> state)

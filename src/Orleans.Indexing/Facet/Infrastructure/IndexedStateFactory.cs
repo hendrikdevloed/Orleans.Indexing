@@ -5,10 +5,10 @@ namespace Orleans.Indexing.Facet
 {
     public class IndexedStateFactory : IIndexedStateFactory
     {
-        private readonly IGrainActivationContext activationContext;
+        private readonly IGrainContext context;
 
-        public IndexedStateFactory(IGrainActivationContext activationContext, ITypeResolver typeResolver, IGrainFactory grainFactory)
-            => this.activationContext = activationContext;
+        public IndexedStateFactory(IGrainContext context, IGrainFactory grainFactory)
+            => this.context = context;
 
         public INonFaultTolerantWorkflowIndexedState<TState> CreateNonFaultTolerantWorkflowIndexedState<TState>(IIndexedStateConfiguration config)
             where TState : class, new()
@@ -25,8 +25,8 @@ namespace Orleans.Indexing.Facet
         private TWrappedIndexedStateImplementation CreateIndexedState<TWrappedIndexedStateImplementation>(IIndexedStateConfiguration config)
             where TWrappedIndexedStateImplementation : ILifecycleParticipant<IGrainLifecycle>
         {
-            var indexedState = ActivatorUtilities.CreateInstance<TWrappedIndexedStateImplementation>(this.activationContext.ActivationServices, config);
-            indexedState.Participate(activationContext.ObservableLifecycle);
+            var indexedState = ActivatorUtilities.CreateInstance<TWrappedIndexedStateImplementation>(this.context.ActivationServices, config);
+            indexedState.Participate(context.ObservableLifecycle);
             return indexedState;
         }
     }

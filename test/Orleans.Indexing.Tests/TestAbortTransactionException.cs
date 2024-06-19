@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Orleans.Indexing.Tests
 {
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class TestAbortTransactionException : Exception
     {
         public TestAbortTransactionException() : base("Aborting indexing test transaction.") { }

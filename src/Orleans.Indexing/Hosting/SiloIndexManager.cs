@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orleans.ApplicationParts;
 using Orleans.Core;
 using Orleans.Indexing.TestInjection;
 using Orleans.Runtime;
+using Orleans.Serialization.TypeSystem;
 using Orleans.Services;
 using System;
 using System.Collections.Generic;
@@ -32,7 +34,7 @@ namespace Orleans.Indexing
         internal IGrainServiceFactory GrainServiceFactory { get; }
         
 
-        public SiloIndexManager(IServiceProvider sp, IGrainFactory gf, IApplicationPartManager apm, ILoggerFactory lf, ITypeResolver tr)
+        public SiloIndexManager(IServiceProvider sp, IGrainFactory gf, ApplicationPartManager apm, ILoggerFactory lf, TypeResolver tr)
             : base(sp, gf, apm, lf, tr)
         {
             this.InjectableCode = this.ServiceProvider.GetService<IInjectableCode>() ?? new ProductionInjectableCode();

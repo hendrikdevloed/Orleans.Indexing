@@ -2,7 +2,7 @@ using System;
 
 namespace Orleans.Indexing.Tests.MultiInterface
 {
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class EmployeeGrainState : IEmployeeGrainState
     {
         #region IPersonProperties

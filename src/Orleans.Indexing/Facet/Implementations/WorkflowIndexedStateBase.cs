@@ -16,7 +16,7 @@ namespace Orleans.Indexing.Facet
     {
         private protected NonTransactionalState<TWrappedState> nonTransactionalState;
 
-        public WorkflowIndexedStateBase(IServiceProvider sp, IIndexedStateConfiguration config, IGrainActivationContext context)
+        public WorkflowIndexedStateBase(IServiceProvider sp, IIndexedStateConfiguration config, IGrainContext context)
             : base(sp, config, context)
         {
         }
@@ -26,7 +26,7 @@ namespace Orleans.Indexing.Facet
 
         internal override Task OnDeactivateAsync(CancellationToken ct)
         {
-            base.Logger.Trace($"Deactivating indexable grain of type {base.grain.GetType().Name} in silo {this.SiloIndexManager.SiloAddress}.");
+            base.Logger.Trace(IndexingErrorCode.Indexing, "Deactivating indexable grain of type {Name} in silo {SiloAddress}.", base.grain.GetType().Name, this.SiloIndexManager.SiloAddress);
             return this.RemoveFromActiveIndexes();
         }
 

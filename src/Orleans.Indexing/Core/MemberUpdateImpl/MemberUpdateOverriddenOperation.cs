@@ -6,7 +6,7 @@ namespace Orleans.Indexing
     /// This class is a wrapper around another IMemberUpdate, which overrides
     /// the actual operation in the original update
     /// </summary>
-    [Serializable]
+    [Serializable, GenerateSerializer]
     internal class MemberUpdateOverriddenOperation : IMemberUpdate
     {
         private IMemberUpdate _update;

@@ -7,7 +7,7 @@ namespace Orleans.Indexing.Facet
     /// A wrapper around a user-defined state, TGrainState, which indicates whether the grain has been persisted.
     /// </summary>
     /// <typeparam name="TGrainState">the type of user state</typeparam>
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class IndexedGrainStateWrapper<TGrainState>
         where TGrainState: new()
     {

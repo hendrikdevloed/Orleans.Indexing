@@ -18,7 +18,7 @@ namespace Orleans.Indexing.Facet
         public FaultTolerantWorkflowIndexedState(
                 IServiceProvider sp,
                 IIndexedStateConfiguration config,
-                IGrainActivationContext context,
+                IGrainContext context,
                 IGrainFactory grainFactory
             ) : base(sp, config, context)
         {

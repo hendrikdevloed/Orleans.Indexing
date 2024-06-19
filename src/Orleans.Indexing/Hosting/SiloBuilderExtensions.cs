@@ -21,7 +21,7 @@ namespace Orleans.Indexing
             configureOptions?.Invoke(indexingOptions);
 
             return builder
-                .ConfigureDefaults()
+                //.ConfigureDefaults()
                 .AddSimpleMessageStreamProvider(IndexingConstants.INDEXING_STREAM_PROVIDER_NAME)
                 .AddMemoryGrainStorage(IndexingConstants.INDEXING_WORKFLOWQUEUE_STORAGE_PROVIDER_NAME)
                 .AddMemoryGrainStorage(IndexingConstants.INDEXING_STORAGE_PROVIDER_NAME)

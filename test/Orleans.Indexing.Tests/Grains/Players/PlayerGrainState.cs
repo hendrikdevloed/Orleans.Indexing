@@ -2,7 +2,7 @@ using System;
 
 namespace Orleans.Indexing.Tests
 {
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class PlayerGrainState : IPlayerProperties
     {
         public string Email { get; set; }

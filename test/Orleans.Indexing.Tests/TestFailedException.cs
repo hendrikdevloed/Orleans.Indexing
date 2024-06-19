@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Orleans.Indexing.Tests
 {
-    [Serializable]
+    [Serializable, GenerateSerializer]
     public class TestFailedException : Exception
     {
         public TestFailedException() : base("Indexing test failed.") { }
